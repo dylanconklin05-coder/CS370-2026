@@ -15,7 +15,6 @@ ENV UV_EXTRA=${UV_EXTRA}
 ENV WORKSPACE_DIR=${WORKSPACE_DIR}
 ENV WORKSPACE_USER=${WORKSPACE_USER}
 
-
 RUN \
     --mount=type=cache,target=/var/lib/apt/lists \
     --mount=type=cache,target=/var/cache/apt/archives \

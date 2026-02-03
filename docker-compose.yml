@@ -1,13 +1,13 @@
 services:
-  torch.dev.gpu:
+  torch.dev.cpu:
     build:
       context: .
-      dockerfile: docker/Dockerfile.torch.dev.gpu
+      dockerfile: docker/Dockerfile.torch.dev.cpu
       args:
         UV_EXTRA: ${UV_EXTRA:-cpu}
         WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
         WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
-    container_name: eng-ai-agents-dev
+    container_name: eng-ai-agents-dev-cpu
     ports:
       - "${DEV_QUARTO_PORT:-4100}:4100"  # Quarto preview port
       - "${DEV_JUPYTER_PORT:-8888}:8888"  # Jupyter notebook port
@@ -29,15 +29,9 @@ services:
     command:  bash -c "tail -f /dev/null"
     stdin_open: true
     tty: true
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
     networks:
-      - ai-agents-network
+      - ai-agents-network  
+      
   ros.dev.gpu: 
     build:
       context: .
